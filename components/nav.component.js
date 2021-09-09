@@ -50,7 +50,7 @@ function Navigation(props) {
 
     return (
         <>
-            <div className="fixed bottom-0 md:top-0 left-0 h-12 w-full md:w-full z-10 bg-white dark:bg-gray-900 md:border-b md:border-t-0 border-t">
+            <div className="fixed bottom-0 md:top-0 left-0 h-12 w-full md:w-full z-10 bg-white md:border-b md:border-t-0 border-t">
                 <div className="md:h-full w-full flex md:flex-row py-3 px-6">
                     <div className="flex flex-row md:flex-row justify-start space-x-6 w-full">
                         <Link href="/">
