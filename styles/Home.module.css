@@ -66,7 +66,9 @@
 .footer {
     @apply w-full;
     @apply h-16;
+    @apply mb-12;
     @apply border-t;
+    @apply text-center;
     @apply flex;
     @apply justify-center;
     @apply items-center;
@@ -381,6 +383,10 @@
     
     .grid_column {
         @apply p-6;
+    }
+
+    .footer {
+        @apply mb-0;
     }
 }
 
