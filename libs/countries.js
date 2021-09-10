@@ -19,7 +19,7 @@ export async function getCitiesByQuery(query) {
     const countries = await res.json()
     const countriesResult = []
 
-    if(countries.status !== null) {
+    if(!countries.status) {
         for(const country of countries) {
             countriesResult.push({
                 name: country.name,

@@ -12,7 +12,15 @@ function Searchbar(props) {
         const query = event.target.value
 
         if(query.length > 0) {
-            setSearchResult(await getCitiesByQuery(query))
+            const result = await getCitiesByQuery(query)
+
+            if(result.length == 0) {
+                setSearchResult([{name: "No result...", link: ''}])
+            } else {
+                setSearchResult(result)
+            }
+        } else {
+            setSearchResult([{name: "Start typing...", link: ''}])
         }
     };
 
@@ -23,10 +31,24 @@ function Searchbar(props) {
 
     const onClick = (event) => {
         if(searchRef.current && !searchRef.current.contains(event.target)) {
-            setSearchResultVisability(false)
-            window.removeEventListener('click', onClick)
+            closeSearchResult(event)
         }
     }
+
+    const closeSearchResult = () => {
+        setSearchResultVisability(false)
+        window.removeEventListener('click', onClick)
+    }
+
+    // useEffect(() => {
+    //     window.addEventListener('keyup', (event) => {
+    //         if(event.key === "Escape") {
+    //             console.log(searchRef.current)
+    //             searchRef.current.blur()
+    //             closeSearchResult()
+    //         }
+    //     })
+    // })
 
     return (
         <>

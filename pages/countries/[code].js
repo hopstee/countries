@@ -73,7 +73,7 @@ function Country({ country }) {
                             <h2>Population</h2>
                             <p>
                                 {
-                                    country.population.length == 0 ? 
+                                    !country.population ? 
                                     (
                                         <p className={styles.code}>
                                             --//--
@@ -89,7 +89,7 @@ function Country({ country }) {
                             <h2>Area</h2>
                             <p>
                                 {
-                                    country.erea.length == 0 ? 
+                                    !country.area ? 
                                     (
                                         <p className={styles.code}>
                                             --//--

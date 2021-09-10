@@ -50,6 +50,11 @@ export async function getServerSideProps() {
     const countriesObject = {}
     const regionalBlocks = await getAllRegionalBlocks()
     const regions = await getAllRegions()
+    const a = 97;
+    
+    for (let i = 0; i < 26; i++) {
+        countriesObject[String.fromCharCode(a + i)] = [];
+    }
 
     for(const country of countries) {
         const alphabetLetter = (country.name[0]).toLowerCase()
