@@ -72,14 +72,32 @@ function Country({ country }) {
                         <div className={styles.description_item}>
                             <h2>Population</h2>
                             <p>
-                                {(country.population).toLocaleString()}
+                                {
+                                    country.population.length == 0 ? 
+                                    (
+                                        <p className={styles.code}>
+                                            --//--
+                                        </p>
+                                    ) : (
+                                        (country.population).toLocaleString()
+                                    )
+                                }
                                 <img src="/icons/user-group.svg" />
                             </p>
                         </div>
                         <div className={styles.description_item}>
                             <h2>Area</h2>
                             <p>
-                                {(country.area).toLocaleString()}
+                                {
+                                    country.erea.length == 0 ? 
+                                    (
+                                        <p className={styles.code}>
+                                            --//--
+                                        </p>
+                                    ) : (
+                                        (country.area).toLocaleString()
+                                    )
+                                }
                                 <img src="/icons/globe.svg" />
                             </p>
                         </div>
