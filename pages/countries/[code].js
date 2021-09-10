@@ -72,14 +72,14 @@ function Country({ country }) {
                         <div className={styles.description_item}>
                             <h2>Population</h2>
                             <p>
-                                {country.population}
+                                {(country.population).toLocaleString()}
                                 <img src="/icons/user-group.svg" />
                             </p>
                         </div>
                         <div className={styles.description_item}>
                             <h2>Area</h2>
                             <p>
-                                {country.area}
+                                {(country.area).toLocaleString()}
                                 <img src="/icons/globe.svg" />
                             </p>
                         </div>

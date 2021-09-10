@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from '../components/link.component'
+import Searchbar from '../components/searchbar.component'
 import styles from '../styles/Home.module.css'
-import ArrowNarrowRightIcon from '../public/icons/arrow-narrow-right.svg'
+import { getAllRegionalBlocks, getAllRegions } from '../libs/countries';
 
-function Home({ alphabetArray, countriesObject }) {
+function Home({ countriesObject, regionalBlocks, regions }) {
 
     return (
         <>
@@ -14,11 +15,12 @@ function Home({ alphabetArray, countriesObject }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
+            <Searchbar />
             <main className={styles.main}>
                 <div className={styles.grid_view}>
                     {Object.keys(countriesObject).map(letter => (
                         <div className={styles.grid_column} key={letter}>
-                            <p className="bg-gray-100 px-4 py-2 rounded-md">
+                            <p className="bg-gray-100 px-4 py-2 rounded-md" key={letter} id={letter}>
                                 {letter}
                             </p>
                             <div className={styles.column_body}>
@@ -45,13 +47,13 @@ function Home({ alphabetArray, countriesObject }) {
 export async function getServerSideProps() {
     const res = await fetch('https://restcountries.eu/rest/v2/all')
     const countries = await res.json()
-    const alphabetArray = []
     const countriesObject = {}
+    const regionalBlocks = await getAllRegionalBlocks()
+    const regions = await getAllRegions()
 
     for(const country of countries) {
         const alphabetLetter = (country.name[0]).toLowerCase()
         if(!countriesObject.hasOwnProperty(alphabetLetter)) {
-            alphabetArray.push(alphabetLetter)
             countriesObject[alphabetLetter] = []
         }
         countriesObject[alphabetLetter].push(country)
@@ -59,8 +61,9 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            alphabetArray,
             countriesObject,
+            regionalBlocks, 
+            regions,
         },
     }
 }
