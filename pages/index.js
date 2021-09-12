@@ -3,7 +3,9 @@ import Image from 'next/image'
 import Link from '../components/link.component'
 import Searchbar from '../components/searchbar.component'
 import styles from '../styles/Home.module.css'
-import { getAllRegionalBlocks, getAllRegions } from '../libs/countries';
+import { getAllRegionalBlocks, getAllRegions, getAllCountries } from '../libs/countries';
+
+const apiResource = 'https://restcountries.eu/rest/v2'
 
 function Home({ countriesObject, regionalBlocks, regions }) {
 
@@ -45,7 +47,7 @@ function Home({ countriesObject, regionalBlocks, regions }) {
 }
 
 export async function getServerSideProps() {
-    const res = await fetch('https://restcountries.eu/rest/v2/all')
+    const res = await getAllCountries()
     const countries = await res.json()
     const countriesObject = {}
     const regionalBlocks = await getAllRegionalBlocks()

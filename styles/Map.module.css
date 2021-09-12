@@ -1,0 +1,35 @@
+.map_container {
+    @apply fixed;
+    @apply top-0;
+    @apply left-0;
+    @apply w-full;
+    @apply h-screen;
+    @apply z-1000;
+    @apply bg-white;
+    @apply overflow-y-hidden;
+}
+
+.map {
+    @apply w-full;
+    @apply h-full;
+}
+
+.countryHighlight {
+    @apply bg-red-500;
+    @apply bg-opacity-25;
+}
+
+.close_btn {
+    @apply absolute;
+    @apply top-0;
+    @apply right-0;
+    @apply mt-4;
+    @apply mr-4;
+    @apply w-8;
+    @apply h-8;
+    @apply p-1;
+    @apply bg-gray-200;
+    @apply rounded-full;
+    @apply cursor-pointer;
+    @apply z-1000;
+}

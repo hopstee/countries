@@ -1,5 +1,19 @@
+const apiResource = 'https://restcountries.eu/rest/v2'
+
+const geopositionApiResource = (code) => {
+    return `http://api.worldbank.org/v2/country/${code}?format=json`
+}
+
+export async function getAllCountries() {
+    return await fetch(`${apiResource}/all`)
+}
+
+export async function getSingleCountry(code) {
+    return await fetch(`${apiResource}/alpha/${code}`)
+}
+
 export async function getAllCitiesCodes() {
-    const res = await fetch('https://restcountries.eu/rest/v2/all')
+    const res = await getAllCountries()
     const countries = await res.json()
     const countriesCodes = []
 
@@ -15,7 +29,7 @@ export async function getAllCitiesCodes() {
 }
 
 export async function getCitiesByQuery(query) {
-    const res = await fetch(`https://restcountries.eu/rest/v2/name/${query}`)
+    const res = await fetch(`${apiResource}/name/${query}`)
     const countries = await res.json()
     const countriesResult = []
 
@@ -32,7 +46,7 @@ export async function getCitiesByQuery(query) {
 }
 
 export async function getAllRegionalBlocks() {
-    const res = await fetch('https://restcountries.eu/rest/v2/all')
+    const res = await getAllCountries()
     const countries = await res.json()
     const regionalBlocs = []
 
@@ -50,7 +64,7 @@ export async function getAllRegionalBlocks() {
 } 
 
 export async function getAllRegions() {
-    const res = await fetch('https://restcountries.eu/rest/v2/all')
+    const res = await getAllCountries()
     const countries = await res.json()
     const regions = []
 
@@ -59,4 +73,18 @@ export async function getAllRegions() {
     }
 
     return regions;
-} 
+}
+
+export async function getGeoposition(code) {
+    const res = await fetch(geopositionApiResource(code))
+    const geoposition = await res.json()
+
+    return [geoposition[1][0].longitude, geoposition[1][0].latitude]
+}
+
+export async function getGeoJSON(code) {
+    const res = await fetch(`https://raw.githubusercontent.com/inmagik/world-countries/master/countries/${code}.geojson`)
+    const geoJSON = await res.json()
+
+    return geoJSON
+}

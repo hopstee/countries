@@ -1,10 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import Link from '../../components/link.component'
-// import Link from '../components/link.component'
 import styles from '../../styles/Home.module.css'
-import { getAllCitiesCodes } from '../../libs/countries'
+import mapStyles from '../../styles/Map.module.css'
+import { getAllCitiesCodes, getSingleCountry, getGeoposition } from '../../libs/countries'
 import { useRouter } from 'next/router'
+import { useState, useMemo } from "react";
+
+const apiResource = 'https://restcountries.eu/rest/v2'
 
 export async function getStaticPaths() {
     const paths = await getAllCitiesCodes()
@@ -15,18 +19,38 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${params.code}`)
+    const res = await getSingleCountry(params.code)
     const country = await res.json()
+
+    const geoposition = await getGeoposition(country.alpha2Code.toLowerCase())
+    console.log(geoposition)
 
     return {
         props: {
-            country
+            country,
+            geoposition
         },
     }
 }
 
-function Country({ country }) {
+function Country({ country, geoposition }) {
     const router = useRouter()
+    const [isShowMap, setIsHideMap] = useState(false)
+    const [lon, lat] = geoposition
+    const Map = useMemo(() => dynamic(
+        () => import('../../components/map.component'),
+        {
+            loading: () => <p>Loading...</p>,
+            ssr: false,
+            style: mapStyles.countryHighlight
+        }
+    ))
+
+    const showMap = () => {
+        setIsHideMap(!isShowMap)
+        document.body.style.position = isShowMap ? 'fixed' : ''
+    }
+
     return (
         <>
             <Head>
@@ -34,6 +58,19 @@ function Country({ country }) {
                 <meta name="description" content="Information about all countries" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            {!isShowMap ? (
+                <div className={mapStyles.map_container}>
+                    <span className={mapStyles.close_btn} onClick={() => showMap()}>
+                        <img src="/icons/close.svg" />
+                    </span>
+                    <Map 
+                        lon={lon}
+                        lat={lat}
+                        country={country}
+                    />
+                </div>
+            ) : ""}
 
             <main className={styles.description_container}>
                 <div className={styles.description}>
@@ -45,15 +82,21 @@ function Country({ country }) {
                                 />
                             Back
                         </button>
-                        <h1 className={styles.top_block_country}>
-                            <div className={styles.flag}>
-                                <Image
-                                    src={country.flag}
-                                    layout="fill"
-                                />
-                            </div>
-                            {country.name}
-                        </h1>
+                        <button onClick={() => showMap()}>
+                                <h1 className={styles.top_block_country}>
+                                    <div className={styles.flag}>
+                                        <Image
+                                            src={country.flag}
+                                            layout="fill"
+                                        />
+                                    </div>
+                                    {country.name}
+                                    <img 
+                                        src="/icons/location-marker.svg"
+                                        className={styles.icon}
+                                    />
+                                </h1>
+                        </button>
                     </div>
                     <div className={styles.description_section}>
                         <h1>Main Info</h1>
