@@ -22,8 +22,7 @@ export async function getStaticProps({ params }) {
     const res = await getSingleCountry(params.code)
     const country = await res.json()
 
-    const geoposition = await getGeoposition(country.alpha2Code.toLowerCase())
-    console.log(geoposition)
+    const geoposition = await getGeoposition(country.alpha2Code.toLowerCase(), country.latlng[1], country.latlng[0])
 
     return {
         props: {
@@ -59,7 +58,7 @@ function Country({ country, geoposition }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            {!isShowMap ? (
+            {isShowMap ? (
                 <div className={mapStyles.map_container}>
                     <span className={mapStyles.close_btn} onClick={() => showMap()}>
                         <img src="/icons/close.svg" />

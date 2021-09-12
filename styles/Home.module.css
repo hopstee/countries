@@ -1,5 +1,6 @@
 .container {
     @apply min-h-screen;
+    @apply w-full;
     @apply py-0;
     @apply px-6;
     @apply flex;
@@ -23,6 +24,7 @@
 .center {
     @apply w-full;
     @apply h-full;
+    @apply mt-16;
     @apply flex;
     @apply flex-col;
     @apply justify-center;

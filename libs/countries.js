@@ -75,11 +75,18 @@ export async function getAllRegions() {
     return regions;
 }
 
-export async function getGeoposition(code) {
+export async function getGeoposition(code, lon, lat) {
     const res = await fetch(geopositionApiResource(code))
     const geoposition = await res.json()
+    let longitude = lon
+    let latitude = lat
 
-    return [geoposition[1][0].longitude, geoposition[1][0].latitude]
+    if(!geoposition[0].message) {
+        longitude = geoposition[1][0].longitude
+        latitude = geoposition[1][0].latitude
+    }
+
+    return [longitude, latitude]
 }
 
 export async function getGeoJSON(code) {
