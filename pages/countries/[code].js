@@ -45,9 +45,9 @@ function Country({ country, geoposition }) {
         }
     ))
 
-    const showMap = () => {
-        setIsHideMap(!isShowMap)
-        document.body.style.position = isShowMap ? 'fixed' : ''
+    const showMap = (state) => {
+        setIsHideMap(state)
+        document.body.style.position = state ? 'fixed' : ''
     }
 
     return (
@@ -60,7 +60,7 @@ function Country({ country, geoposition }) {
 
             {isShowMap ? (
                 <div className={mapStyles.map_container}>
-                    <span className={mapStyles.close_btn} onClick={() => showMap()}>
+                    <span className={mapStyles.close_btn} onClick={() => showMap(false)}>
                         <img src="/icons/close.svg" />
                     </span>
                     <Map 
@@ -81,7 +81,7 @@ function Country({ country, geoposition }) {
                                 />
                             Back
                         </button>
-                        <button onClick={() => showMap()}>
+                        <button onClick={() => showMap(true)}>
                                 <h1 className={styles.top_block_country}>
                                     <div className={styles.flag}>
                                         <Image
