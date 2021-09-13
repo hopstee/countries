@@ -137,7 +137,7 @@ function Country({ country, geoposition }) {
                                             --//--
                                         </p>
                                     ) : (
-                                        (country.area).toLocaleString()
+                                        <p>{(country.area).toLocaleString()} &#x33A2;</p>
                                     )
                                 }
                                 <img src="/icons/globe.svg" />
@@ -235,3 +235,7 @@ function Country({ country, geoposition }) {
 }
 
 export default Country;
+
+
+
+// fitness-doza

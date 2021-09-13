@@ -46,8 +46,14 @@ function Map({ lon, lat, country }) {
                     position={coordinates}
                     icon={markerIcon}
                 >
-                    <Popup className="text-center">
-                        {country.name} <br /> Capital: {country.capital}
+                    <Popup>
+                        {country.name}
+                        <br /> 
+                        Capital: {country.capital}
+                        <br /> 
+                        Population: {country.population}
+                        <br /> 
+                        Area: {country.area} &#x33A2;
                     </Popup>
                 </Marker>
             </MarkerClusterGroup>
