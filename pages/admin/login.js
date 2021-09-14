@@ -2,19 +2,25 @@ import styles from '../../styles/Admin.module.css'
 import { signIn } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/client'
 
 function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [isLoginStarted, setIsLoginStarted] = useState(false)
     const [loginError, setLoginError] = useState('')
+    const [session, loading] = useSession()
     const router = useRouter()
 
     useEffect(() => {
         if (router.query.error) {
-        setLoginError(router.query.error)
-        setUsername(router.query.username)
+            setLoginError(router.query.error)
+            setUsername(router.query.username)
         }
+
+        if(loading || session?.accessToken) {
+			router.push('/admin/dashboard')
+		}
     }, [router])
 
     const handleLogin = (e) => {
