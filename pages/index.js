@@ -3,11 +3,9 @@ import Image from 'next/image'
 import Link from '../components/link.component'
 import Searchbar from '../components/searchbar.component'
 import styles from '../styles/Home.module.css'
-import { getAllRegionalBlocks, getAllRegions, getAllCountries } from '../libs/countries';
+import { getAllCountries } from '../libs/countries';
 
-const apiResource = 'https://restcountries.eu/rest/v2'
-
-function Home({ countriesObject, regionalBlocks, regions }) {
+function Home({ countriesObject, alphabetArray }) {
 
     return (
         <>
@@ -19,6 +17,13 @@ function Home({ countriesObject, regionalBlocks, regions }) {
 
             <Searchbar />
             <main className={styles.main}>
+                {/* <div className={styles.alphabet_navigation}>
+                    {
+                        alphabetArray.map(item => (
+                            <span>{item}</span>
+                        ))
+                    }
+                </div> */}
                 <div className={styles.grid_view}>
                     {Object.keys(countriesObject).map(letter => (
                         <div className={styles.grid_column} key={letter}>
@@ -49,28 +54,35 @@ function Home({ countriesObject, regionalBlocks, regions }) {
 export async function getServerSideProps() {
     const res = await getAllCountries()
     const countries = await res.json()
-    const countriesObject = {}
-    const regionalBlocks = await getAllRegionalBlocks()
-    const regions = await getAllRegions()
+    let countriesObject = {}
+    const alphabetArray = []
     const a = 97;
     
     for (let i = 0; i < 26; i++) {
-        countriesObject[String.fromCharCode(a + i)] = [];
+        const l = String.fromCharCode(a + i)
+        countriesObject[l] = [];
+        alphabetArray.push(l)
     }
 
     for(const country of countries) {
         const alphabetLetter = (country.name[0]).toLowerCase()
         if(!countriesObject.hasOwnProperty(alphabetLetter)) {
             countriesObject[alphabetLetter] = []
+            alphabetArray.push(alphabetLetter)
         }
         countriesObject[alphabetLetter].push(country)
     }
 
+    Object.keys(countriesObject).map(item => {
+        if(countriesObject[item].length == 0) {
+            delete countriesObject[item]
+        }
+    })
+
     return {
         props: {
             countriesObject,
-            regionalBlocks, 
-            regions,
+            alphabetArray,
         },
     }
 }

@@ -40,16 +40,6 @@ function Searchbar(props) {
         window.removeEventListener('click', onClick)
     }
 
-    // useEffect(() => {
-    //     window.addEventListener('keyup', (event) => {
-    //         if(event.key === "Escape") {
-    //             console.log(searchRef.current)
-    //             searchRef.current.blur()
-    //             closeSearchResult()
-    //         }
-    //     })
-    // })
-
     return (
         <>
             <div className="md:mt-16 py-6 md:py-8 md:px-6 w-full md:w-full bg-white">

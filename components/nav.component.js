@@ -47,17 +47,21 @@ function Navigation(props) {
     return (
         <>
             <div className="fixed bottom-0 md:top-0 left-0 h-12 w-full md:w-full z-10 bg-white dark:bg-gray-800 md:border-b md:border-t-0 border-t">
-                <div className="md:h-full w-full flex md:flex-row py-3 px-6">
+                <div className="h-full w-full flex md:flex-row px-6">
                     <div className="flex flex-row md:flex-row justify-start items-center space-x-6 w-full">
                         <Link href="/">
-                            <a className={styles.nav_link}>
-                                Countries
-                            </a>
+                            <div className={styles.nav_link_container}>
+                                <a className={styles.nav_link}>
+                                    Countries
+                                </a>
+                            </div>
                         </Link>
                         <Link href="/about">
-                            <a className={styles.nav_link}>
-                                About
-                            </a>
+                            <div className={styles.nav_link_container}>
+                                <a className={styles.nav_link}>
+                                    About
+                                </a>
+                            </div>
                         </Link>
                     </div>
                 </div>

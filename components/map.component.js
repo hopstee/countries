@@ -2,7 +2,8 @@ import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { getGeoJSON } from '../libs/countries'
-import styles from '../styles/Map.module.css'
+import mapStyles from '../styles/Map.module.css'
+import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import * as MCG from 'react-leaflet-markercluster'
 
@@ -36,7 +37,7 @@ function Map({ lon, lat, country }) {
     }, [])
 
     return (
-        <MapContainer center={coordinates} zoom={6} scrollWheelZoom={false} className={styles.map}>
+        <MapContainer center={coordinates} zoom={6} scrollWheelZoom={false} className={mapStyles.map}>
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -51,9 +52,27 @@ function Map({ lon, lat, country }) {
                         <br /> 
                         Capital: {country.capital}
                         <br /> 
-                        Population: {country.population}
+                        Population: {
+                            !country.population ? 
+                            (
+                                <span className={styles.code}>
+                                    --//--
+                                </span>
+                            ) : (
+                                (country.population).toLocaleString()
+                            )
+                        }
                         <br /> 
-                        Area: {country.area} &#x33A2;
+                        Area: {
+                            !country.area ? 
+                            (
+                                <span className={styles.code}>
+                                    --//--
+                                </span>
+                            ) : (
+                                <span>{(country.area).toLocaleString()} &#x33A2;</span>
+                            )
+                        }
                     </Popup>
                 </Marker>
             </MarkerClusterGroup>

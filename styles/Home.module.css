@@ -365,19 +365,53 @@
     @apply leading-normal;
 }
 
+.nav_link_container {
+    @apply h-full;
+    @apply py-1;
+}
+
 .nav_link {
     @apply text-gray-800;
-    @apply dark:text-gray-100;
+    @apply flex;
+    @apply items-center;
+    @apply h-full;
+    @apply px-4;
+    @apply rounded-md;
     @apply cursor-pointer;
 }
 
 .nav_link:hover {
-    @apply text-blue-600;
+    @apply bg-gray-100;
+}
+
+.active_nav_link {
+    @apply border-b-2;
+    @apply border-blue-400;
 }
 
 .logo {
     height: 1em;
     margin-left: 0.5rem;
+}
+
+.alphabet_navigation {
+    @apply fixed;
+    @apply flex;
+    @apply flex-col;
+    @apply top-1/2;
+    @apply translate-y-1/2;
+    @apply right-1;
+}
+
+.alphabet_navigation > span {
+    @apply w-5;
+    @apply h-5;
+    @apply text-center;
+    @apply cursor-pointer;
+}
+
+.alphabet_navigation > span:hover {
+    @apply text-blue-600;
 }
 
 @media (min-width: 640px) {
