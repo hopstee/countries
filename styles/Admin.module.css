@@ -1,0 +1,71 @@
+.main {
+    @apply h-auto;
+    @apply w-full;
+    @apply mt-12;
+    @apply flex;
+    @apply justify-center;
+    @apply items-center;
+}
+  
+.loginStep {
+    @apply mt-1;
+    @apply overflow-hidden;
+    @apply max-w-full;
+}
+  
+.loginForm label {
+    @apply leading-10;
+    @apply text-lg;
+    @apply text-gray-400;
+    @apply text-left;
+}
+
+.loginForm input {
+    @apply w-full;
+    @apply self-start;
+    @apply p-4;
+    @apply border;
+    @apply border-gray-200;
+    @apply rounded-md;
+    @apply my-2;
+}
+
+input.errorInput {
+    @apply border-red-400;
+    @apply outline-none;
+}
+
+.loginForm input:focus {
+    @apply border-blue-400;
+    @apply outline-none;
+}
+
+span.error {
+    @apply text-sm;
+    @apply text-red-400;
+    @apply mb-3;
+    @apply block;
+}
+  
+.blueButtonRound {
+    @apply w-full;
+    @apply bg-none;
+    @apply border;
+    @apply rounded-md;
+    @apply border-blue-400;
+    @apply p-4;
+    @apply mt-4;
+    @apply transform;
+    @apply duration-150;
+}
+
+.blueButtonRound:hover {
+    @apply bg-blue-500;
+    @apply text-white;
+}
+
+@media (min-width: 640px) {
+    .loginStep {
+        @apply mt-12;
+    }
+}

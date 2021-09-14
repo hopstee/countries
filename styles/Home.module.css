@@ -53,6 +53,12 @@
     @apply rounded-md;
     @apply text-gray-800;
     @apply bg-green-100;
+    @apply transform;
+    @apply duration-150;
+}
+
+.top_block_country:hover {
+    @apply bg-green-200;
 }
 
 .top_block_country > .icon {
@@ -83,27 +89,6 @@
 
 .footer p {
     @apply text-gray-700;
-}
-
-.title a {
-    color: #0070f3;
-    text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-    text-decoration: underline;
-}
-
-.title {
-    margin: 0;
-    line-height: 1.15;
-    font-size: 4rem;
-}
-
-.title {
-    text-align: center;
 }
 
 .description_container {
@@ -213,6 +198,8 @@
     @apply py-2;
     @apply px-3;
     @apply rounded-md;
+    @apply transform;
+    @apply duration-150;
 }
 
 .input:focus {
@@ -235,6 +222,8 @@
     @apply ring-blue-400;
     @apply ring-opacity-50;
     @apply rounded-md;
+    @apply transform;
+    @apply duration-150;
 }
 
 .search_result {
@@ -249,6 +238,8 @@
     @apply p-2;
     @apply rounded-md;
     @apply cursor-pointer;
+    @apply transform;
+    @apply duration-150;
 }
 
 .result_item:last-child {
@@ -272,6 +263,8 @@
     @apply border;
     @apply rounded-md;
     @apply min-w-max;
+    @apply transform;
+    @apply duration-150;
 }
 
 .button:hover {
@@ -289,6 +282,8 @@
     @apply mb-2;
     @apply cursor-pointer;
     @apply hover:text-blue-500;
+    @apply transform;
+    @apply duration-150;
 }
 
 .lang_switcher {
@@ -378,6 +373,8 @@
     @apply px-4;
     @apply rounded-md;
     @apply cursor-pointer;
+    @apply transform;
+    @apply duration-150;
 }
 
 .nav_link:hover {
