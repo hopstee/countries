@@ -224,6 +224,7 @@
     @apply rounded-md;
     @apply transform;
     @apply duration-150;
+    @apply z-50;
 }
 
 .search_result {
@@ -409,6 +410,10 @@
 
 .alphabet_navigation > span:hover {
     @apply text-blue-600;
+}
+
+.loading {
+    @apply p-6;
 }
 
 @media (min-width: 640px) {

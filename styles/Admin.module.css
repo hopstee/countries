@@ -6,6 +6,41 @@
     @apply justify-center;
     @apply items-center;
 }
+
+.dashboard_container {
+    @apply w-full;
+    @apply h-full;
+}
+
+.title {
+    @apply mb-5;
+    @apply text-xl;
+    @apply text-blue-600;
+}
+
+.dashboard_item {
+    @apply border-b;
+    @apply border-dotted;
+    @apply border-gray-400;
+    @apply pb-2;
+}
+
+.dashboard_item p {
+    @apply my-2;
+}
+
+.dashboard_item button {
+    @apply rounded-md;
+    @apply bg-green-100;
+    @apply py-2;
+    @apply px-4;
+    @apply transform;
+    @apply duration-150;
+}
+
+.dashboard_item button:hover {
+    @apply bg-green-200;
+}
   
 .loginStep {
     @apply mt-1;
@@ -65,6 +100,11 @@ span.error {
 }
 
 @media (min-width: 640px) {
+    .dashboard_container {
+        @apply mt-5;
+        @apply px-4;
+    }
+
     .loginStep {
         @apply mt-12;
     }

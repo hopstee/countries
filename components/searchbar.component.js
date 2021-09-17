@@ -1,7 +1,6 @@
 import Link from './link.component'
 import { useState, useRef, useEffect } from "react";
 import styles from '../styles/Home.module.css'
-import { getCitiesByQuery } from '../libs/countries'
 
 function Searchbar(props) {
     const [searchResult, setSearchResult] = useState([{name: "Start typing...", link: ''}]);
@@ -12,7 +11,8 @@ function Searchbar(props) {
         const query = event.target.value
 
         if(query.length > 0) {
-            const result = await getCitiesByQuery(query)
+            const res = await fetch(`/api/searchCountry?name=${query}`)
+            const result = await res.json()
 
             if(result.length == 0) {
                 setSearchResult([{name: "No result...", link: ''}])

@@ -3,9 +3,41 @@ import Image from 'next/image'
 import Link from '../components/link.component'
 import Searchbar from '../components/searchbar.component'
 import styles from '../styles/Home.module.css'
-import { getAllCountries } from '../libs/countries';
+import { useEffect, useState } from 'react'
 
-function Home({ countriesObject, alphabetArray }) {
+function Home() {
+    const [countries, setCountries] = useState(null)
+    const handleData = async () => {
+        const countriesResponse = await fetch("/api/getCountries")
+        const countriesResult = await countriesResponse.json()
+        const countriesObject = {}
+        const a = 97;
+
+        for (let i = 0; i < 26; i++) {
+            const l = String.fromCharCode(a + i)
+            countriesObject[l] = [];
+        }
+
+        for(const country in countriesResult) {
+            const alphabetLetter = (countriesResult[country].name[0]).toLowerCase()
+            if(!countriesObject.hasOwnProperty(alphabetLetter)) {
+                countriesObject[alphabetLetter] = []
+            }
+            countriesObject[alphabetLetter].push(countriesResult[country])
+        }
+    
+        Object.keys(countriesObject).map(item => {
+            if(countriesObject[item].length == 0) {
+                delete countriesObject[item]
+            }
+        })
+
+        setCountries(countriesObject)
+    }
+
+    useEffect(() => {
+        handleData()
+	}, [])
 
     return (
         <>
@@ -25,14 +57,19 @@ function Home({ countriesObject, alphabetArray }) {
                     }
                 </div> */}
                 <div className={styles.grid_view}>
-                    {Object.keys(countriesObject).map(letter => (
+                    {!countries ? 
+                        (
+                            <p className={styles.loading}>
+                                Loading...
+                            </p>
+                        ) : Object.keys(countries).map(letter => (
                         <div className={styles.grid_column} key={letter}>
                             <p className="bg-gray-100 px-4 py-2 rounded-md" key={letter} id={letter}>
                                 {letter}
                             </p>
                             <div className={styles.column_body}>
-                                {countriesObject[letter].map(country => (
-                                    <Link href={`/countries/${country.alpha3Code.toLowerCase()}`}>
+                                {countries[letter].map(country => (
+                                    <Link href={`/countries/${country.alpha3Code}`}>
                                         <a className={styles.link_container} key={country.alpha3Code}>
                                             {country.name}
                                             <img 
@@ -49,42 +86,6 @@ function Home({ countriesObject, alphabetArray }) {
             </main>
         </>
     )
-}
-
-export async function getServerSideProps() {
-    const res = await getAllCountries()
-    const countries = await res.json()
-    let countriesObject = {}
-    const alphabetArray = []
-    const a = 97;
-    
-    for (let i = 0; i < 26; i++) {
-        const l = String.fromCharCode(a + i)
-        countriesObject[l] = [];
-        alphabetArray.push(l)
-    }
-
-    for(const country of countries) {
-        const alphabetLetter = (country.name[0]).toLowerCase()
-        if(!countriesObject.hasOwnProperty(alphabetLetter)) {
-            countriesObject[alphabetLetter] = []
-            alphabetArray.push(alphabetLetter)
-        }
-        countriesObject[alphabetLetter].push(country)
-    }
-
-    Object.keys(countriesObject).map(item => {
-        if(countriesObject[item].length == 0) {
-            delete countriesObject[item]
-        }
-    })
-
-    return {
-        props: {
-            countriesObject,
-            alphabetArray,
-        },
-    }
 }
 
 export default Home;

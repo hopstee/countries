@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.1",
+    "browserify-fs": "^1.0.0",
     "leaflet": "^1.7.1",
     "next": "11.1.2",
     "next-auth": "^3.29.0",
@@ -22,5 +23,10 @@
     "autoprefixer": "^10.3.4",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.11"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }

@@ -1,7 +1,4 @@
-import Link from './link.component'
-import { useState, useRef, useEffect } from "react";
 import styles from '../styles/Home.module.css'
-import { getCitiesByQuery } from '../libs/countries'
 
 function Footer(props) {
     const getCurrentYear = () => {

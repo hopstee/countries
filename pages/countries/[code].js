@@ -4,14 +4,25 @@ import dynamic from 'next/dynamic'
 import Link from '../../components/link.component'
 import styles from '../../styles/Home.module.css'
 import mapStyles from '../../styles/Map.module.css'
-import { getAllCitiesCodes, getSingleCountry, getGeoposition } from '../../libs/countries'
 import { useRouter } from 'next/router'
 import { useState, useMemo } from "react";
 
-const apiResource = 'https://restcountries.eu/rest/v2'
+const dev = process.env.NODE_ENV !== 'production';
+export const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
 
 export async function getStaticPaths() {
-    const paths = await getAllCitiesCodes()
+    const codesResult = await fetch(`${server}/api/getCountriesCodes`)
+    const codes = await codesResult.json()
+    const paths = []
+
+    for(const code in codes) {
+        paths.push({
+            params: {
+                code: codes[code].code
+            }
+        })
+    }
+
     return {
         paths,
         fallback: false
@@ -19,10 +30,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await getSingleCountry(params.code)
+    const res = await fetch(`${server}/api/getCountry?code=${params.code}`)
     const country = await res.json()
 
-    const geoposition = await getGeoposition(country.alpha2Code.toLowerCase(), country.latlng[1], country.latlng[0])
+    const geopositionRes = await fetch(`${server}/api/getGeoposition?code=${params.code}`)
+    let geoposition = await geopositionRes.json()
+
+    if (geopositionRes == null) {
+        geoposition = [
+            country.latlng[1] ? country.latlng[1] : 0, 
+            country.latlng[0] ? country.latlng[0] : 0
+        ]
+    }
 
     return {
         props: {

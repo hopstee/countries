@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
+import Head from 'next/head'
 
 function Login() {
     const [username, setUsername] = useState('')
@@ -40,6 +41,10 @@ function Login() {
 
     return (
         <>
+            <Head>
+                <title>Login</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <main className={styles.main}>
                 <div className={styles.loginStep}>
                     <form onSubmit={(e) => handleLogin(e)} className={styles.loginForm}>

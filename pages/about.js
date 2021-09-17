@@ -16,7 +16,10 @@ function About() {
                         Information resource about the countries of the world.
                     </p>
                     <p className="mb-4">
-                        Data source: <a target="blank" href="https://restcountries.eu" className={styles.link}>restcountries.eu</a>
+                        Data source: [
+                            <a target="_blank" href="https://restcountries.eu" className={styles.link}>restcountries.eu</a>, 
+                            <a target="_blank" href="https://raw.githubusercontent.com/inmagik/world-countries/master/countries" className={styles.link}>raw.githubusercontent.com</a>
+                        ]
                     </p>
                     <p className="mb-4">
                         Developer: Krivovyashuk Edik   
