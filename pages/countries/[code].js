@@ -200,7 +200,7 @@ function Country({ country, geoposition }) {
                                 {
                                     country.borders.length > 0 ? 
                                     country.borders.map(border => (
-                                        <Link href={`/countries/${border.toLowerCase()}`}>
+                                        <Link href={`/countries/${border}`}>
                                             <a key={border}>
                                                 {border}
                                                 <img 
