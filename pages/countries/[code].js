@@ -13,6 +13,7 @@ export const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
 
 export async function getStaticPaths() {
     const paths = []
+
     const codesData = fs.readFileSync(process.cwd() + '/data/countries_codes.json')
     const codes = JSON.parse(codesData)
 
