@@ -6,14 +6,15 @@ import styles from '../../styles/Home.module.css'
 import mapStyles from '../../styles/Map.module.css'
 import { useRouter } from 'next/router'
 import { useState, useMemo } from "react";
+import * as fs from 'fs'
 
 const dev = process.env.NODE_ENV !== 'production';
 export const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
 
 export async function getStaticPaths() {
     const paths = []
-    const codesResult = await fetch(`${server}/api/getCountriesCodes`)
-    const codes = await codesResult.json()
+    const codesData = fs.readFileSync(process.cwd() + '/data/countries_codes.json')
+    const codes = JSON.parse(codesData)
 
     for(const code of codes) {
         paths.push({
