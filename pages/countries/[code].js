@@ -8,8 +8,7 @@ import { useRouter } from 'next/router'
 import { useState, useMemo } from "react";
 
 const dev = process.env.NODE_ENV !== 'production';
-// export const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
-export const server = 'http://localhost:3000';
+export const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
 
 export async function getStaticPaths() {
     const paths = []
@@ -26,7 +25,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true
+        fallback: 'blocking'
     }
 }
 
