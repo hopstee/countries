@@ -11,16 +11,20 @@ const dev = process.env.NODE_ENV !== 'production';
 export const server = dev ? 'http://localhost:3000' : process.env.DOMAIN;
 
 export async function getStaticPaths() {
-    const codesResult = await fetch(`${server}/api/getCountriesCodes`)
-    const codes = await codesResult.json()
     const paths = []
+    try {
+        const codesResult = await fetch(`${server}/api/getCountriesCodes`)
+        const codes = await codesResult.json()
 
-    for(const code of codes) {
-        paths.push({
-            params: {
-                code: code
-            }
-        })
+        for(const code of codes) {
+            paths.push({
+                params: {
+                    code: code
+                }
+            })
+        }
+    } catch(e) {
+        console.log(e)
     }
 
     return {
