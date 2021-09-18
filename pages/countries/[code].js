@@ -13,24 +13,20 @@ export const server = 'http://localhost:3000';
 
 export async function getStaticPaths() {
     const paths = []
-    try {
-        const codesResult = await fetch(`${server}/api/getCountriesCodes`)
-        const codes = await codesResult.json()
+    const codesResult = await fetch(`${server}/api/getCountriesCodes`)
+    const codes = await codesResult.json()
 
-        for(const code of codes) {
-            paths.push({
-                params: {
-                    code: code
-                }
-            })
-        }
-    } catch(e) {
-        console.log(e)
+    for(const code of codes) {
+        paths.push({
+            params: {
+                code: code
+            }
+        })
     }
 
     return {
         paths,
-        fallback: 'unstable_blocking'
+        fallback: true
     }
 }
 
