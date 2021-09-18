@@ -8,6 +8,10 @@ const geopositionBorders = (code) => {
     return `https://raw.githubusercontent.com/inmagik/world-countries/master/countries/${code}.geojson`
 }
 
+if (!fs.existsSync(process.cwd() + '/data')){
+    fs.mkdirSync(process.cwd() + '/data');
+}
+
 const countriesFile = process.cwd() + '/data/countries.json'
 const countriesCodesFile = process.cwd() + '/data/countries_codes.json'
 const countriesGeopositionFile = process.cwd() + '/data/geopositions.json'
