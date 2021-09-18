@@ -32,11 +32,17 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const res = await fetch(`${server}/api/getCountry?code=${params.code}`)
-    const country = await res.json()
+    // const res = await fetch(`${server}/api/getCountry?code=${params.code}`)
+    // const country = await res.json()
+    const countriesData = fs.readFileSync(process.cwd() + '/data/countries.json')
+    const countriesRes = JSON.parse(countriesData)
+    const country = countriesRes[params.code]
 
-    const geopositionRes = await fetch(`${server}/api/getGeoposition?code=${params.code}`)
-    let geoposition = await geopositionRes.json()
+    // const geopositionRes = await fetch(`${server}/api/getGeoposition?code=${params.code}`)
+    let geoposition = []
+
+    const geopositionData = fs.readFileSync(process.cwd() + '/data/geopositions.json')
+    const geopositionRes = JSON.parse(geopositionData)
 
     if (geopositionRes == null) {
         geoposition = [
@@ -44,6 +50,11 @@ export async function getStaticProps({ params }) {
             country.latlng[0] ? country.latlng[0] : 0
         ]
     }
+
+    geoposition = [
+        geopositionRes[params.code].longitude,
+        geopositionRes[params.code].latitude
+    ]
 
     return {
         props: {

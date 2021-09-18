@@ -1,5 +1,10 @@
 import NextAuth from 'next-auth'
+import { session } from 'next-auth/client'
+import { getToken } from 'next-auth/jwt'
 import Providers from 'next-auth/providers'
+
+const jwtSecret = process.env.JWT_SECRET
+let userAccount = null
 
 const options = {
     // site: process.env.NEXTAUTH_URL,
@@ -23,6 +28,7 @@ const options = {
                     isAllowedToSignIn = true
 
                     user.username = credentials.username
+                    userAccount = user
                 }
 
                 if (isAllowedToSignIn) {
