@@ -41,6 +41,21 @@
 .dashboard_item button:hover {
     @apply bg-green-200;
 }
+
+.dashboard_item button div {
+    @apply flex;
+    @apply items-center;
+}
+
+.dashboard_item button p {
+    @apply m-0;
+    @apply mr-3;
+}
+
+.dashboard_item button img {
+    @apply w-6;
+    @apply h-6;
+}
   
 .loginStep {
     @apply mt-1;

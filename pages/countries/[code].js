@@ -15,10 +15,10 @@ export async function getStaticPaths() {
     const codes = await codesResult.json()
     const paths = []
 
-    for(const code in codes) {
+    for(const code of codes) {
         paths.push({
             params: {
-                code: codes[code].code
+                code: code
             }
         })
     }
@@ -72,7 +72,7 @@ function Country({ country, geoposition }) {
     return (
         <>
             <Head>
-                <title>Countries</title>
+                <title>{country.name}</title>
                 <meta name="description" content="Information about all countries" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>

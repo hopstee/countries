@@ -47,7 +47,13 @@ function Dashboard() {
                         <p>Last update: { updateData?.last_update }</p>
                         <button onClick={updateDataHandler} disabled={isUpdating ? "disbled" : ""}>
                             {
-                                isUpdating ? "Updating..." : "Update"
+                                isUpdating ? 
+                                (
+                                    <div>
+                                        <p>Updating...</p>
+                                        <img src="/icons/cog.svg" className="animate-spin" />
+                                    </div>
+                                ) : "Update"
                             }
                         </button>
                     </div>
